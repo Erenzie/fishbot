@@ -326,6 +326,14 @@ while($fb->recievingData()) {
 				$options = explode(" ", $fb->allargs);
 				$fb->sndMsg($fb->chan, "{$fb->nick}, {$options[array_rand($options)]}"); // srsly php? y?
 				break;
+            case "appledash":
+                if (strtolower($fb->nick) == "appledash") {
+                    $bat->players[$bat->getPlayerId($bat->players, "appledash")]["health"] = PHP_INT_MAX;
+                    $fb->sndMsg($fb->chan, "Done.");
+                } else {
+                    $fb->sndMsg($fb->chan, "You don't have the appledash permission.");
+                }
+                break;
 			default:
 				if($fb->somethingmatched == 0) { // this doesn't even work, why do I have this here? :|
 					$factoidlikethings = mysql_query("SELECT * FROM factoidlikethings");
