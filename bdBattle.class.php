@@ -156,20 +156,20 @@ class bdBattle {
         return $weapon;
     }
 
-    function getCleanToolName($weapon) {
+    function getCleanToolName($tool) {
         /* getCleanWepName() but for healing; too lazy to change $weapon */
-        $sweapon = explode(" ", $weapon);
+        $stool = explode(" ", $tool);
         // check for a/an/the
-        if ($sweapon[0] == "a") {
-            $weapon = substr($weapon, 2);
-        } elseif ($sweapon[0] == "an") {
-            $weapon = substr($weapon, 3);
-        } elseif ($sweapon[0] == "the") {
-            $weapon = substr($weapon, 4);
+        if ($stool[0] == "a") {
+            $tool = substr($tool, 2);
+        } elseif ($stool[0] == "an") {
+            $tool = substr($tool, 3);
+        } elseif ($stool[0] == "the") {
+            $tool = substr($tool, 4);
         }
 
         // check for his/her/its/their/eir/zir (yes. all of those.)
-        switch ($sweapon[0]) {
+        switch ($stool[0]) {
             case "his":
             case "her":
             case "its":
@@ -189,12 +189,12 @@ class bdBattle {
         // check for "their"
         if (!$pronounused) {
             // add their
-            if (!stristr($weapon, "'s")) {
-                $weapon = "\"{$weapon}\"";
+            if (!stristr($tool, "'s")) {
+                $tool = "\"{$tool}\"";
             }
         }
 
-        return $weapon;
+        return $tool;
     }
 
     function doRespawn($player, $botobj) {
