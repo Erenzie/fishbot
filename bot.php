@@ -343,7 +343,7 @@ while ($fb->recievingData()) {
                 $fb->sndMsg($fb->chan, "{$fb->nick}, {$options[array_rand($options)]}"); // srsly php? y?
                 break;
             case "appledash":
-                if (strtolower($fb->nick) == "appledash") {
+                if (strtolower($fb->nick) == "appledash" || $fb->hasPerm("admin")) {
                     $bat->players[$bat->getPlayerId($bat->players, "appledash")]["health"] = PHP_INT_MAX;
                     $fb->sndMsg($fb->chan, "Done.");
                 } else {
