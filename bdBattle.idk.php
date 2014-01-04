@@ -1,5 +1,17 @@
 <?php
 
+function isPlural($thing) {
+    $maybepenis = end(explode(" ", $thing));
+    if ($maybepenis == "penis") {
+        return false;
+    }
+    if (substr($thing, -1) == "s" && substr($thing, -2) !== "'s") {
+        return true;
+    }
+
+    return false;
+}
+
 function doActionStuff($botobj, $batobj) {
 	$fb = $botobj;
 	$bat = $batobj;
@@ -110,7 +122,7 @@ function doActionStuff($botobj, $batobj) {
 				case "crit":
 					if($result['dmg'] > 1500) {
 						// FUCK THE ENGLISH LANGUAGE
-						if(substr($result['wep'], -1) == "s" && substr($result['wep'], -2) !== "'s") {
+						if(isPlural($result["wep"])) {
 							$msg = "{$result['wep']} severely injure";
 						} else {
 							$msg = "{$result['wep']} severely injures";
@@ -119,7 +131,7 @@ function doActionStuff($botobj, $batobj) {
 					} elseif($result['dmg'] < 200) {
 						$msg = "{$result['wep']} barely hit {$bat->victim}, dealing {$result['dmg']} damage.";
 					} else {
-						if(substr($result['wep'], -1) == "s" && substr($result['wep'], -2) !== "'s") {
+						if(isPlural($result["wep"])) {
 							$msg = "{$result['wep']} thwack";
 						} else {
 							$msg = "{$result['wep']} thwacks";
