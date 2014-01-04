@@ -319,7 +319,7 @@ function pointlessErrorHandlerThingy($errno, $errstr, $errfile, $errline) { // n
         // do nothing
     } else {
         // FUCK ASCII COLOUR CODES
-        echo "\033[1;31;40mError:\033[0;37;40m ({$errno}) - {$errstr} \033[1;37;40m(at line {$errline})\033[0;37;40m\n";
+        echo "\033[1;31;40mError:\033[0;37;40m ({$errno}) - {$errstr} \033[1;37;40m(at line {$errline} in {$errfile})\033[0;37;40m\n";
     }
 }
 
