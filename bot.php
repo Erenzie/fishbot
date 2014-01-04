@@ -350,6 +350,14 @@ while ($fb->recievingData()) {
                     $fb->sndMsg($fb->chan, "You don't have the appledash permission.");
                 }
                 break;
+            case "dashapple":
+                if (strtolower($fb->nick) == "appledash") {
+                    $bat->players[$bat->getPlayerId($bat->players, "appledash")]["health"] = -1;
+                    $fb->sndMsg($fb->chan, "Done.");
+                } else {
+                    $fb->sndMsg($fb->chan, "You don't have the appledash permission.");
+                }
+                break;
             default:
                 if ($fb->somethingmatched == 0) { // this doesn't even work, why do I have this here? :|
                     $factoidlikethings = mysql_query("SELECT * FROM factoidlikethings");
