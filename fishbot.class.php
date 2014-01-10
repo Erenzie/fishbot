@@ -312,6 +312,14 @@ class fishbot {
     function getRandChanMember($chan) {
         return $this->nicklist[$chan][array_rand($this->nicklist[$chan])];
     }
+    
+    function checkUserInChan($user, $chan) {
+		if(in_array($user, $this->nicklist[$chan])) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }
 
 function pointlessErrorHandlerThingy($errno, $errstr, $errfile, $errline) { // no more annoying "undefined offset" errors! :P

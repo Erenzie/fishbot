@@ -101,8 +101,6 @@ function doActionStuff($botobj, $batobj) {
 			
 			switch($result['type']) {
 				case "miss":
-					/*$fb->sndMsg($fb->chan, "{$bat->attacker} completely missed {$bat->victim}...");
-					$manualsnd = true;*/
 					// hit some other random person in the channel
 					$randperson = $fb->getRandChanMember($fb->chan);
 					$whoitwassupposedtohit = $bat->victim;
@@ -120,6 +118,13 @@ function doActionStuff($botobj, $batobj) {
 				
 				case "normal":
 				case "crit":
+					// check if the weapon is a user in the channel
+					if($fb->checkUserInChan(substr($result['wep'], 4), $fb->chan)) {
+						// hurt the weaponised user too
+						$userweaponised = true;
+						$result2 = $bat->doAttacking($bat->attacker, substr($result['wep'], 4), substr($result['wep'], 4), true);
+					} else { $userweaponised = false; }
+					
 					if($result['dmg'] > 1500) {
 						// FUCK THE ENGLISH LANGUAGE
 						if(isPlural($result["wep"])) {
@@ -127,16 +132,30 @@ function doActionStuff($botobj, $batobj) {
 						} else {
 							$msg = "{$result['wep']} severely injures";
 						}
-						$msg = $msg." {$bat->victim}, dealing {$result['dmg']} damage!";
+						
+						if($userweaponised) {
+							$msg = $msg." {$bat->victim}, dealing {$result['dmg']} damage to both!";
+						} else {
+							$msg = $msg." {$bat->victim}, dealing {$result['dmg']} damage!";
+						}
 					} elseif($result['dmg'] < 200) {
-						$msg = "{$result['wep']} barely hit {$bat->victim}, dealing {$result['dmg']} damage.";
+						if($userweaponised) {
+							$msg = "{$result['wep']} barely hit {$bat->victim}, dealing {$result['dmg']} damage to both.";
+						} else {
+							$msg = "{$result['wep']} barely hit {$bat->victim}, dealing {$result['dmg']} damage.";
+						}
 					} else {
 						if(isPlural($result["wep"])) {
 							$msg = "{$result['wep']} thwack";
 						} else {
 							$msg = "{$result['wep']} thwacks";
 						}
-						$msg = $msg." {$bat->victim} in the face, dealing {$result['dmg']} damage.";
+						
+						if($userweaponised) {
+							$msg = $msg." {$bat->victim} in the face, dealing {$result['dmg']} damage to both.";
+						} else {
+							$msg = $msg." {$bat->victim} in the face, dealing {$result['dmg']} damage.";
+						}
 					}
 					$manualsnd = false;
 					break;
