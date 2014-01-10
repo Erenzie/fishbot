@@ -2,8 +2,11 @@
 
 function isPlural($thing) {
     $maybepenis = end(explode(" ", $thing));
-    if ($maybepenis == "penis") {
+    if ($maybepenis == "penis" || $maybepenis == "cactus") {
         return false;
+    }
+    if ($maybepenis == "cacti") {
+        return true;
     }
     if (substr($thing, -1) == "s" && substr($thing, -2) !== "'s") {
         return true;

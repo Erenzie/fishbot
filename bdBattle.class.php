@@ -244,6 +244,8 @@ class bdBattle {
     }
 
     function doAttacking($attacker, $victim, $weapon, $nofail = false) {
+        $victim = trim($victim);
+        $weapon = trim($weapon);
         /* Does all the attacking of stuff and returns an array with the following:
          * [0]/["type"] = type of result: normal, fatalNormal, crit, fatalCrit, miss
          * [1]/["dmg"] = damage done
@@ -370,6 +372,9 @@ class bdBattle {
          * [1]/["healing"] = amount of healing done
          * [2]/["hp"] = victim's new health
          * [3]/["tool"] = "clean" tool name */
+        $healer = trim($healer);
+        $patient = trim($patient);
+        $tool = trim($tool);
 
         $result = array();
 
