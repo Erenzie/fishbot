@@ -1,7 +1,1 @@
-See https://wiki.interlinked.me/page/Fishbot for a general list of commands.
-
-To run your own, you'll need PHP and MySQL. Edit the config.example.php appropriately and rename it to config.php.
-You'll also need to run a script to create the database (which I haven't made yet)
-Then to run, use "php bot.php"
-
-Visit #fishbot on irc.interlinked.me for questions and such.
+Visit http://eren.netsplit.me/?fishbot for information and documentation.
