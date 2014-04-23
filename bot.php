@@ -1,4 +1,5 @@
 <?php
+// load config file
 if(isset($argv[1])) {
 	echo "loading config file {$argv[1]}...\n";
 	require($argv[1]);
