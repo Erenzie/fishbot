@@ -125,7 +125,14 @@ function doActionStuff($botobj, $batobj) {
 					if($fb->checkUserInChan(substr($result['wep'], 4), $fb->chan)) {
 						// hurt the weaponised user too
 						$userweaponised = true;
-						$result2 = $bat->doAttacking($bat->attacker, substr($result['wep'], 4), substr($result['wep'], 4), true);
+						$weaponiseduser = substr($result['wep'], 4);
+						// check if they're in game
+						if (!$bat->checkPlayerInGame($weaponiseduser)) {
+							// attacker isn't in game, add them
+							$bat->addPlayer($weaponiseduser);
+							echo "added weaponised user {$weaponiseduser} to game - {$bat->getPlayersString()}\n";
+						}
+						$wuhp = $bat->damagePlayer($weaponiseduser, $result['dmg']);
 					} else { $userweaponised = false; }
 					
 					if($result['dmg'] > 1500) {
@@ -160,7 +167,13 @@ function doActionStuff($botobj, $batobj) {
 							$msg = $msg." {$bat->victim} in the face, dealing {$result['dmg']} damage.";
 						}
 					}
-					$manualsnd = false;
+					if($userweaponised) {
+						$manualsnd = true;
+						$msg = $msg." {$bat->victim} now has {$result['hp']} HP, and {$weaponiseduser} now has {$wuhp} HP.";
+						$fb->sndMsg($fb->chan, $msg);
+					} else {
+						$manualsnd = false;
+					}
 					break;
 				
 				default:

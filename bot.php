@@ -1,9 +1,9 @@
 <?php
 if(isset($argv[1])) {
-	echo "loading config file {$argv[1]}...";
+	echo "loading config file {$argv[1]}...\n";
 	require($argv[1]);
 } else {
-	echo "no config file specified, loading config..php...";
+	echo "no config file specified, loading config..php...\n";
 	require("config.php");
 }
 
