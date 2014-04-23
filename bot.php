@@ -337,10 +337,13 @@ while ($fb->recievingData()) {
                 $gender = $fb->allargs;
                 if ($gender == "m") {
                     $bat->setPlayerGender($fb->nick, "m");
+					$fb->sndMsg($fb->chan, "{$fb->nick}'s gender set to m");
                 } elseif ($gender == "f") {
                     $bat->setPlayerGender($fb->nick, "f");
+					$fb->sndMsg($fb->chan, "{$fb->nick}'s gender set to f");
                 } elseif ($gender == "o") {
                     $bat->setPlayerGender($fb->nick, "o");
+					$fb->sndMsg($fb->chan, "{$fb->nick}'s gender set to o");
                 } else {
                     $fb->sndMsg($fb->chan, "Valid options are m, f, or o (other/unspecified, uses they)");
                 }
