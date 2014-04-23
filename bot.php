@@ -322,6 +322,8 @@ while ($fb->recievingData()) {
                 if (strlen($player) == 0) {
                     $player = $fb->nick;
                 }
+				
+				$player = trim($player);
 
                 $hp = $bat->getPlayerHealth($player);
 
