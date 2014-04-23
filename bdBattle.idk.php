@@ -88,7 +88,7 @@ function doActionStuff($botobj, $batobj) {
 			}
 			$fb->sndMsg($fb->chan, $msg);*/
 		}
-	} elseif($bat->checkAttkMatch("throws (.*) at (.*)", $fb->msg, $fb, true) or $bat->checkAttkMatch("drops (.*) on (.*)", $fb->msg, $fb, true)) {	
+	} elseif($bat->checkAttkMatch("throws (.*) at (.*)", $fb->msg, $fb, true) or $bat->checkAttkMatch("drops (.*) on (.*)", $fb->msg, $fb, true) or $bat->checkAttkMatch("thwacks (.*) with (.*)", $fb->msg, $fb)) {	
 		if($bat->victim == $fb->botnick) {
 			$fb->sndMsg($fb->chan, "owww :(");
 		} else {
