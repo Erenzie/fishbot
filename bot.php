@@ -1,5 +1,12 @@
 <?php
-require("config.php");
+if(isset($argv[1])) {
+	echo "loading config file {$argv[1]}...";
+	require($argv[1]);
+} else {
+	echo "no config file specified, loading config..php...";
+	require("config.php");
+}
+
 require("fishbot.class.php");
 require("quotes.class.php");
 
@@ -31,8 +38,9 @@ while ($fb->recievingData()) {
                 break;
             case "quote":
                 $id = $fb->args[4];
-                if ($id == "9001") {
-                    $fb->sndMsg($fb->chan, "Quote 9001 - <Chazz> IT'S OVER 9000! :D :DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11");
+		if(!$fb->hasPerm("ignore", 0)) {
+               	if ($id == "9001") {
+               	    $fb->sndMsg($fb->chan, "Quote 9001 - <Chazz> IT'S OVER 9000! :D :DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11");
                 } else {
                     $quote = $quotes->get($id);
                     if (!$quote) {
@@ -41,14 +49,17 @@ while ($fb->recievingData()) {
                         $fb->sndMsg($fb->chan, "Quote {$quote['id']} - {$quote['quote']}");
                     }
                 }
+		}
                 break;
             case "addquote":
+		if(!$fb->hasPerm("ignore", 0)) {
                 $id = $quotes->add($fb->allargs, $fb->nick, $fb->chan);
                 if ($id) {
                     $fb->sndMsg($fb->chan, "Quote $id successfully added.");
                 } else {
                     $fb->sndMsg($fb->chan, "Something went wrong when adding the quote :(");
                 }
+		}
                 break;
             case "delquote":
                 $id = mysql_real_escape_string($fb->args[4]);
