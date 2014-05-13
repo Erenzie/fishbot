@@ -57,7 +57,8 @@ class quotes {
 	function getAdder($id) {
 		$adder = mysql_query("SELECT adder FROM quotes WHERE id='$id'");
 		if($adder) {
-			return $adder;
+			$results = mysql_fetch_array($adder);
+			return $results['adder'];
 		} else {
 			return false;
 		}
