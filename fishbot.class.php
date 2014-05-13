@@ -90,7 +90,7 @@ class fishbot {
 
             // check for CTCP VERSION
             if ($this->rawcmd == "PRIVMSG" && $this->msg == "\001VERSION\001") {
-                $this->sndNotice($this->nick, "fishbot by Eren - http://erenzie.ez.lv/?fishbot");
+                $this->sndNotice($this->nick, "fishbot by Eren - http://erenzie.ez.lv/?fishbot | http://fish.go.woo.mooo.com:1010/");
             }
 
             // check for a user command, and if there is one, set the variables appropriately

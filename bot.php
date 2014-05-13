@@ -46,7 +46,7 @@ while ($fb->recievingData()) {
 						if (!$quote) {
 							$fb->sndMsg($fb->chan, "Quote $id doesn't exist :(");
 						} else {
-							$fb->sndMsg($fb->chan, "Quote {$quote['id']} - {$quote['quote']}");
+							$fb->sndMsg($fb->chan, "\002Quote {$quote['id']}:\002 {$quote['quote']}");
 						}
 					}
 				}
@@ -113,7 +113,7 @@ while ($fb->recievingData()) {
                                     $quote = mysql_fetch_array($results);
                                     //$quote['quote'] = str_replace($searchcrap, "\x02$searchcrap\x02", $quote['quote']);
                                     $quote['quote'] = preg_replace("/(" . $searchcrap . ")/i", "\x02$1\x02", $quote['quote']);
-                                    $fb->sndMsg($fb->chan, "Quote {$quote['id']} - {$quote['quote']}");
+                                    $fb->sndMsg($fb->chan, "\002Quote {$quote['id']}:\002 {$quote['quote']}");
                                     sleep(1);
                                     $shownquotes++;
                                 }
@@ -128,7 +128,7 @@ while ($fb->recievingData()) {
                                     $quote = mysql_fetch_array($results);
                                     //$quote['quote'] = str_replace($searchcrap, "\x02$searchcrap\x02", $quote['quote']);
                                     $quote['quote'] = preg_replace("/(" . $searchcrap . ")/i", "\x02$1\x02", $quote['quote']);
-                                    $fb->sndMsg($fb->chan, "Quote {$quote['id']} - {$quote['quote']}");
+                                    $fb->sndMsg($fb->chan, "\002Quote {$quote['id']}:\002 {$quote['quote']}");
                                     $shownquotes++;
                                 }
                                 $totalshownquotes = 0;
@@ -161,7 +161,7 @@ while ($fb->recievingData()) {
                             $quote = mysql_fetch_array($results);
                             //$quote['quote'] = str_replace($searchcrap, "\x02$searchcrap\x02", $quote['quote']);
                             $quote['quote'] = preg_replace("/(" . $searchcrap . ")/i", "\x02$1\x02", $quote['quote']);
-                            $fb->sndMsg($fb->chan, "Quote {$quote['id']} - {$quote['quote']}");
+                            $fb->sndMsg($fb->chan, "\002Quote {$quote['id']}:\002 {$quote['quote']}");
                             sleep(1);
                             $shownquotes++;
                         }
@@ -176,7 +176,7 @@ while ($fb->recievingData()) {
                             $quote = mysql_fetch_array($results);
                             //$quote['quote'] = str_replace($searchcrap, "\x02$searchcrap\x02", $quote['quote']);
                             $quote['quote'] = preg_replace("/(" . $searchcrap . ")/i", "\x02$1\x02", $quote['quote']);
-                            $fb->sndMsg($fb->chan, "Quote {$quote['id']} - {$quote['quote']}");
+                            $fb->sndMsg($fb->chan, "\002Quote {$quote['id']}:\002 {$quote['quote']}");
                             sleep(1);
                             $shownquotes++;
                         }
