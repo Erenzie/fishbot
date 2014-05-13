@@ -63,16 +63,18 @@ class quotes {
 		}
 	}
 	
-	function add($content, $adder, $channel) {
+	function add($content, $adder, $channel, $network) {
 		$origcontent = $content;
 		$origadder = $adder;
 		$origchannel = $channel;
+		$orignetwork = $network;
 		$content = mysql_real_escape_string($content);
 		$adder = mysql_real_escape_string($adder);
 		$channel = mysql_real_escape_string($channel);
+		$network = mysql_real_escape_string($network);
 		$time = time();
 		// now add the quote
-		$added = mysql_query("INSERT INTO quotes(quote, adder, added, channel) VALUES('{$content}', '{$adder}', '{$time}', '{$channel}')");
+		$added = mysql_query("INSERT INTO quotes(quote, adder, added, channel, network) VALUES('{$content}', '{$adder}', '{$time}', '{$channel}', '{$network}')");
 		if($added) {
 			// get the id of the quote
 			$quoteid = mysql_query("SELECT id FROM quotes WHERE quote='$content' AND adder='$adder' AND added='{$time}'");

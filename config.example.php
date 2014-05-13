@@ -11,6 +11,7 @@ $config['realname'] = "Teh f1shb0t <°)))))><"; // the bot's "real name"
 $config['nspass'] = ""; // nickserv password, blank for none
 
 // irc server to connect to
+$config['network'] = "Interlinked"; // Network name - for inclusion in quotes db
 $config['server'] = "irc.interlinked.me";
 $config['port'] = 6667;
 $config['channels'] = array("#Sporks", "#fishbot"); // the channel names MUST be capitalised exactly as they appear when you /join (so #Sporks is correct, #sporks is not)

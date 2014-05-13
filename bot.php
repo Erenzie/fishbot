@@ -38,28 +38,37 @@ while ($fb->recievingData()) {
                 break;
             case "quote":
                 $id = $fb->args[4];
-		if(!$fb->hasPerm("ignore", 0)) {
-               	if ($id == "9001") {
-               	    $fb->sndMsg($fb->chan, "Quote 9001 - <Chazz> IT'S OVER 9000! :D :DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11");
-                } else {
-                    $quote = $quotes->get($id);
-                    if (!$quote) {
-                        $fb->sndMsg($fb->chan, "Quote $id doesn't exist :(");
-                    } else {
-                        $fb->sndMsg($fb->chan, "Quote {$quote['id']} - {$quote['quote']}");
-                    }
-                }
-		}
+				if(!$fb->hasPerm("ignore", 0)) {
+					if ($id == "9001") {
+						$fb->sndMsg($fb->chan, "Quote 9001 - <Chazz> IT'S OVER 9000! :D :DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11");
+					} else {
+						$quote = $quotes->get($id);
+						if (!$quote) {
+							$fb->sndMsg($fb->chan, "Quote $id doesn't exist :(");
+						} else {
+							$fb->sndMsg($fb->chan, "Quote {$quote['id']} - {$quote['quote']}");
+						}
+					}
+				}
                 break;
+			case "quoteinfo":
+				$id = $fb->args[4];
+				$quote = $quotes->get($id);
+				if(!$quote) {
+					$fb->sndMsg($fb->chan, "Quote $id doesn't exist.");
+				} else {
+					$fb->sndMsg($fb->chan, "Quote $id was added by {$quote['adder']} on ".date("F j, Y", $quote['added'])." ".date("g:ia", $quote['added'])." in {$quote['channel']} on {$quote['network']}.");
+				}
+				break;
             case "addquote":
-		if(!$fb->hasPerm("ignore", 0)) {
-                $id = $quotes->add($fb->allargs, $fb->nick, $fb->chan);
-                if ($id) {
-                    $fb->sndMsg($fb->chan, "Quote $id successfully added.");
-                } else {
-                    $fb->sndMsg($fb->chan, "Something went wrong when adding the quote :(");
-                }
-		}
+				if(!$fb->hasPerm("ignore", 0)) {
+					$id = $quotes->add($fb->allargs, $fb->nick, $fb->chan, $config['network']);
+					if ($id) {
+						$fb->sndMsg($fb->chan, "Quote $id successfully added.");
+					} else {
+						$fb->sndMsg($fb->chan, "Something went wrong when adding the quote :(");
+					}
+				}
                 break;
             case "delquote":
                 $id = mysql_real_escape_string($fb->args[4]);
