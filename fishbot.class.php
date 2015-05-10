@@ -1,6 +1,7 @@
 <?php
 class fishbot {
     var $conn = null;
+    var $prefixes = array("!", "~", "&", "@", "%", "+");
 
     function connect($server, $port, $nick, $realname, $ident, $nspass = "") {
         $this->server = $server;
@@ -114,7 +115,7 @@ class fishbot {
                 print_r($nicksa);
                 foreach ($nicksa as $nick) {
                     // check for @ and + (other shitty modes may be added if necessary)
-                    if (substr($nick, 0, 1) == "@" or substr($nick, 0, 1) == "+") {
+                    while (in_array(substr($nick, 0, 1), $this->prefixes)) {
                         $nick = substr($nick, 1);
                     }
                     array_push($this->nicklist[$chan], $nick);
