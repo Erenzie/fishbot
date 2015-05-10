@@ -68,8 +68,8 @@ class bdBattle {
             $id = $this->getPlayerId($this->players, $player);
             $health = $this->players[$id]["health"];
 
-            // check if damage > health
-            if ($damage > $health) {
+            // check if damage >= health
+            if ($damage >= $health) {
                 $newhealth = 0;
             } else {
                 $newhealth = $health - $damage;
