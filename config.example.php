@@ -24,5 +24,6 @@ $config['db-name'] = "fishbot";
 
 // other
 $config['commandchar'] = ".";
+$config["bindip"] = ""; // Outgoing IP to bind to (for vhosts)
 
 ?>

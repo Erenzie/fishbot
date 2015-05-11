@@ -11,9 +11,16 @@ class fishbot {
         $this->ident = $ident;
         $this->nspass = $nspass;
         echo "Connecting to $server port $port, with the nick $nick.\n";
-        $this->conn = fsockopen($server, $port, $errnr, $errstr);
+
+        $sock = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
+        if (isset($config["bindip"]) && $config["bindip"] != "") {
+            socket_bind($sock, $config["bindip"]);
+        }
+        socket_connect($sock, $server, $port);
+        $this->conn = $sock;
+
         if (!$this->conn) { // check if we successfully connected
-            die ("Couldn't connect. Error: $errnr - $errstr\n");
+            die ("Couldn't connect.\n");
         }
         // wait a second then throw the user info at the server
         sleep(1);
@@ -29,24 +36,33 @@ class fishbot {
             echo "Why are you trying to sendRaw() when you're not connected?\n";
         } else {
             //echo "SENDING: $text\n";
-            fputs($this->conn, "$text\r\n");
+            socket_write($this->conn, $text . "\r\n");
         }
     }
 
     function recievingData() {
         // checks if data's being recieved over the socket.
-        if (!feof($this->conn)) {
-            return true;
-        } else {
-            return false;
+        return true; //TODO: Figure out how do do this with socket_* funcs. -AppleDash
+    }
+
+    function getLine() {
+        $ln = "";
+        while (true) {
+            $c = socket_read($this->conn, 1);
+            if ($c == "") {
+                return "";
+            }
+            if ($c == "\n") {
+                return trim($ln);
+            }
+            $ln .= $c;
         }
     }
 
     function getData() {
         // throws the data that's been recieved into $this->raw, and a few other vars. also, pongs back to the server and a few other things
-        $this->raw = fgets($this->conn);
+        $this->raw = $this->getLine();
         if (!empty($this->raw)) {
-            $this->raw = substr($this->raw, 0, -2);
             $this->args = explode(" ", $this->raw);
             $this->rawcmd = trim($this->args[1]);
             if ($this->rawcmd == "") {
